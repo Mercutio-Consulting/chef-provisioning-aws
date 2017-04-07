@@ -1,18 +1,18 @@
 require 'chef/provisioning/aws_driver'
 
-with_driver 'aws::eu-west-1' do
-  aws_launch_config 'my-sweet-launch-config' do
-    image 'ami-f0b11187'
+with_driver 'aws::eu-west-2b' do
+  aws_launch_config 'testnode' do
+    image 'ami-a58d0dc5'
     instance_type 't1.micro'
   end
 
-  aws_auto_scaling_group 'my-awesome-auto-scaling-group' do
+  aws_auto_scaling_group 'nodescaling' do
     desired_capacity 3
     min_size 1
     max_size 5
     launch_configuration 'my-sweet-launch-config'
     notification_configurations(
-      topic: 'arn::aws::sns::eu-west1:<account_id>:<my-topic>',
+      topic: 'arn::aws::sns::eu-west2b:<account_id>:<my-topic>',
       types: [
         'autoscaling:EC2_INSTANCE_LAUNCH',
         'autoscaling:EC2_INSTANCE_TERMINATE'
